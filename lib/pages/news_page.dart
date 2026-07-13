@@ -118,6 +118,9 @@ class _NewsPageState extends State<NewsPage> {
                             imageUrl:
                                 fetchNewsList[index]["urlToImage"] ??
                                 "https://ichef.bbci.co.uk/ace/standard/2048/cpsprodpb/3b89/live/60e7ae50-03dc-11f0-a387-437e2fb661fc.jpg",
+                            url:
+                                fetchNewsList[index]["url"] ??
+                                "https://www.google.com",
                           );
                         },
                       ),
