@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class NewsCard extends StatelessWidget {
   const NewsCard({
     super.key,
-    required this.imagePath,
+    required this.imageUrl,
     required this.title,
-    required this.newArticle,
+    required this.description,
   });
 
-  final String imagePath;
+  final String imageUrl;
   final String title;
-  final String newArticle;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class NewsCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(imagePath),
+            child: Image.network(imageUrl),
           ),
           SizedBox(height: 6),
 
@@ -33,13 +33,17 @@ class NewsCard extends StatelessWidget {
               children: [
                 Text(
                   title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),
 
                 // SizedBox(height: 4),
                 Text(
-                  newArticle,
+                  description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontSize: 14, color: Colors.black),
                 ),
               ],

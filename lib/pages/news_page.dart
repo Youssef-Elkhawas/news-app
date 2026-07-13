@@ -1,6 +1,8 @@
-import 'package:flutter_lorem/flutter_lorem.dart';
+// import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/services/fetch_news_service.dart';
 import 'package:news_app/widgets/category_card.dart';
+import 'package:news_app/widgets/custom_loading_widget.dart';
 import 'package:news_app/widgets/news_card.dart';
 
 class NewsPage extends StatefulWidget {
@@ -19,17 +21,37 @@ class _NewsPageState extends State<NewsPage> {
     "Football",
     "Cinema",
   ];
-
-  final List<Map<String, String>> articles = List.generate(
-    10,
-    (index) => {
-      "breif": lorem(words: 50, paragraphs: 2),
-      "title": lorem(words: 6, paragraphs: 1),
-      "image": "https://picsum.photos/seed/${(index + 1) * 9}/400/250",
-    },
-  );
-
   String currentCategory = "General";
+
+  // final List<Map<String, String>> articles = List.generate(
+  //   10,
+  //   (index) => {
+  //     "breif": lorem(words: 50, paragraphs: 2),
+  //     "title": lorem(words: 6, paragraphs: 1),
+  //     "image": "https://picsum.photos/seed/${(index + 1) * 9}/400/250",
+  //   },
+  // );
+
+  var fetchNewsList = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchNews(category: currentCategory);
+  }
+
+  void fetchNews({required String category}) async {
+    isLoading = true;
+    setState(() {});
+    FetchNewsService fetchNewsService = FetchNewsService();
+    fetchNewsList = await fetchNewsService.newsList(category: currentCategory);
+    setState(() {
+      isLoading = false;
+    });
+
+    debugPrint(fetchNewsList.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +89,7 @@ class _NewsPageState extends State<NewsPage> {
                         setState(() {
                           currentCategory = categories[index];
                         });
+                        fetchNews(category: currentCategory);
                       },
                       child: CategoryCard(
                         categoryName: categories[index],
@@ -80,33 +103,24 @@ class _NewsPageState extends State<NewsPage> {
 
               //-----------news card---------------
               Expanded(
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        currentCategory,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: isLoading
+                    ? CustomLoadingWidget()
+                    : ListView.builder(
+                        itemCount: fetchNewsList.length,
+                        itemBuilder: (context, index) {
+                          return NewsCard(
+                            // imageUrl: articles[index]["image"] ?? "",
+                            // title: articles[index]["title"] ?? "",
+                            // description: articles[index]["breif"] ?? "",
+                            title: fetchNewsList[index]["title"] ?? "",
+                            description:
+                                fetchNewsList[index]["description"] ?? "",
+                            imageUrl:
+                                fetchNewsList[index]["urlToImage"] ??
+                                "https://ichef.bbci.co.uk/ace/standard/2048/cpsprodpb/3b89/live/60e7ae50-03dc-11f0-a387-437e2fb661fc.jpg",
+                          );
+                        },
                       ),
-                    ),
-
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: articles.length,
-                      itemBuilder: (context, index) {
-                        return NewsCard(
-                          imagePath: articles[index]["image"] ?? "",
-                          title: articles[index]["title"] ?? "",
-                          newArticle: articles[index]["breif"] ?? "",
-                        );
-                      },
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
