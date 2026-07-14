@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/models/news_model.dart';
 import 'package:news_app/pages/webview.dart';
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.description,
-    required this.url,
-  });
+  const NewsCard({super.key, required this.newsModel});
 
-  final String imageUrl;
-  final String title;
-  final String description;
-  final String url;
+  final NewsModel newsModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +14,8 @@ class NewsCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => NewsWebView(url: url, title: title),
+            builder: (_) =>
+                NewsWebView(url: newsModel.url, title: newsModel.title),
           ),
         );
       },
@@ -34,7 +27,7 @@ class NewsCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(imageUrl),
+              child: Image.network(newsModel.imgURL),
             ),
             SizedBox(height: 6),
 
@@ -44,7 +37,7 @@ class NewsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    newsModel.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -53,7 +46,7 @@ class NewsCard extends StatelessWidget {
 
                   // SizedBox(height: 4),
                   Text(
-                    description,
+                    newsModel.discription,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 14, color: Colors.black),

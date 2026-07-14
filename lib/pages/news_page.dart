@@ -1,6 +1,10 @@
 // import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/services/fetch_news_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/cubits/fetch_news_cubit/fetch_news_cubit.dart';
+import 'package:news_app/cubits/fetch_news_cubit/fetch_news_state.dart';
+// import 'package:news_app/services/fetch_news_service.dart';
+// import 'package:news_app/services/fetch_news_service.dart';
 import 'package:news_app/widgets/category_card.dart';
 import 'package:news_app/widgets/custom_loading_widget.dart';
 import 'package:news_app/widgets/news_card.dart';
@@ -32,37 +36,37 @@ class _NewsPageState extends State<NewsPage> {
   //   },
   // );
 
-  var fetchNewsList = [];
-  bool isLoading = false;
+  // var fetchNewsList = [];
+  // bool isLoading = false;
 
-  @override
-  void initState() {
-    super.initState();
-    fetchNews(category: currentCategory);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchNews(category: currentCategory);
+  // }
 
-  void fetchNews({required String category}) async {
-    isLoading = true;
-    setState(() {});
-    FetchNewsService fetchNewsService = FetchNewsService();
-    fetchNewsList = await fetchNewsService.newsList(category: currentCategory);
-    setState(() {
-      isLoading = false;
-    });
+  // void fetchNews({required String category}) async {
+  //   isLoading = true;
+  //   setState(() {});
+  //   FetchNewsService fetchNewsService = FetchNewsService();
+  //   fetchNewsList = await fetchNewsService.newsList(category: currentCategory);
+  //   setState(() {
+  //     isLoading = false;
+  //   });
+  //   debugPrint(fetchNewsList.toString());
+  // }
 
-    debugPrint(fetchNewsList.toString());
-  }
+  //-----------------------------------------------//
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
         title: Text(
           "News App",
           style: TextStyle(
-            color: Colors.amberAccent,
+            color: Colors.blue.shade700,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -89,7 +93,10 @@ class _NewsPageState extends State<NewsPage> {
                         setState(() {
                           currentCategory = categories[index];
                         });
-                        fetchNews(category: currentCategory);
+                        // fetchNews(category: currentCategory);
+                        BlocProvider.of<FetchNewsCubit>(
+                          context,
+                        ).fetchNews(category: currentCategory);
                       },
                       child: CategoryCard(
                         categoryName: categories[index],
@@ -103,27 +110,28 @@ class _NewsPageState extends State<NewsPage> {
 
               //-----------news card---------------
               Expanded(
-                child: isLoading
-                    ? CustomLoadingWidget()
-                    : ListView.builder(
-                        itemCount: fetchNewsList.length,
+                child: BlocBuilder<FetchNewsCubit, FetchNewsState>(
+                  builder: (context, state) {
+                    if (state is FetchNewsLoading) {
+                      return CustomLoadingWidget();
+                    }
+                    if (state is FetchNewsSuccess) {
+                      return ListView.builder(
+                        itemCount: BlocProvider.of<FetchNewsCubit>(
+                          context,
+                        ).newsList.length,
                         itemBuilder: (context, index) {
                           return NewsCard(
-                            // imageUrl: articles[index]["image"] ?? "",
-                            // title: articles[index]["title"] ?? "",
-                            // description: articles[index]["breif"] ?? "",
-                            title: fetchNewsList[index]["title"] ?? "",
-                            description:
-                                fetchNewsList[index]["description"] ?? "",
-                            imageUrl:
-                                fetchNewsList[index]["urlToImage"] ??
-                                "https://ichef.bbci.co.uk/ace/standard/2048/cpsprodpb/3b89/live/60e7ae50-03dc-11f0-a387-437e2fb661fc.jpg",
-                            url:
-                                fetchNewsList[index]["url"] ??
-                                "https://www.google.com",
+                            newsModel: BlocProvider.of<FetchNewsCubit>(
+                              context,
+                            ).newsList[index],
                           );
                         },
-                      ),
+                      );
+                    }
+                    return Text("Failed load news");
+                  },
+                ),
               ),
             ],
           ),

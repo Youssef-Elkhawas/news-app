@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:news_app/cubits/fetch_news_cubit/fetch_news_cubit.dart';
 import 'package:news_app/pages/news_page.dart';
 
 class OnBoarding extends StatelessWidget {
@@ -27,7 +29,7 @@ class OnBoarding extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue,
+                        color: Colors.blue.shade700,
                       ),
                     ),
                     SizedBox(height: 8),
@@ -35,7 +37,7 @@ class OnBoarding extends StatelessWidget {
                       "Welcome for newest news",
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.amberAccent.shade700,
+                        color: Colors.amber.shade800,
                       ),
                     ),
                   ],
@@ -45,6 +47,9 @@ class OnBoarding extends StatelessWidget {
               //------navigation bUTTONS---------
               ElevatedButton(
                 onPressed: () {
+                  BlocProvider.of<FetchNewsCubit>(
+                    context,
+                  ).fetchNews(category: "General");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -58,7 +63,7 @@ class OnBoarding extends StatelessWidget {
                 child: Text(
                   "Explore",
                   style: TextStyle(
-                    color: Colors.amberAccent,
+                    color: Colors.amber.shade300,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

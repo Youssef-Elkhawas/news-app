@@ -18,7 +18,7 @@ class CategoryCard extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: isSelected ? Colors.blue : Colors.grey.shade300,
+        color: isSelected ? Colors.blue.shade700 : Colors.grey.shade300,
       ),
 
       child: Text(

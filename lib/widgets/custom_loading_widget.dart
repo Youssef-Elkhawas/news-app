@@ -8,14 +8,14 @@ class CustomLoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(child: Lottie.asset("assets/lotties/loading.json")),
+        Expanded(child: Lottie.asset("assets/lotties/loadingCircle.json")),
 
         Text(
           "Loading....",
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
-            color: Colors.blue,
+            color: Colors.blueAccent,
           ),
         ),
         SizedBox(height: 30),
