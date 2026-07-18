@@ -15,7 +15,6 @@ class FetchNewsService {
         },
       );
       List<NewsModel> newsData = [];
-      debugPrint(response.data["articles"].toString());
 
       for (var item in response.data["articles"]) {
         newsData.add(
@@ -29,6 +28,7 @@ class FetchNewsService {
           ),
         );
       }
+      debugPrint(response.data["articles"].toString());
       return newsData;
     } catch (e) {
       debugPrint(e.toString());
