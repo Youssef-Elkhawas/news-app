@@ -18,13 +18,13 @@ class CategoryCard extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: isSelected ? Colors.blue.shade700 : Colors.grey.shade300,
+        color: isSelected ? Color(0xFF0F172A) : Color(0xFFE2E8F0),
       ),
 
       child: Text(
         categoryName,
         style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
+          color: isSelected ? Colors.white : Color(0xFF64748B),
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),

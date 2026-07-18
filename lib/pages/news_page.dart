@@ -24,8 +24,10 @@ class _NewsPageState extends State<NewsPage> {
     "Business",
     "Football",
     "Cinema",
+    "Health",
+    "Programming",
   ];
-  String currentCategory = "General";
+  String currentCategory = "general";
 
   // final List<Map<String, String>> articles = List.generate(
   //   10,
@@ -63,15 +65,30 @@ class _NewsPageState extends State<NewsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          "News App",
-          style: TextStyle(
-            color: Colors.blue.shade700,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Globe",
+              style: TextStyle(
+                fontSize: 24,
+                // fontWeight: FontWeight.bold,
+                color: Color(0xFF1E3A8A),
+              ),
+            ),
+            Text(
+              "Pulse",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFF97316),
+              ),
+            ),
+          ],
         ),
       ),
+      backgroundColor: Color(0xFFF8FAFC),
 
       body: SafeArea(
         child: Padding(
@@ -100,7 +117,9 @@ class _NewsPageState extends State<NewsPage> {
                       },
                       child: CategoryCard(
                         categoryName: categories[index],
-                        isSelected: currentCategory == categories[index],
+                        isSelected:
+                            currentCategory.toLowerCase() ==
+                            categories[index].toLowerCase(),
                       ),
                     );
                   },

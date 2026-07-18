@@ -24,7 +24,11 @@ class _NewsWebViewState extends State<NewsWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF1E3A8A),
+        title: Text(widget.title, style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: WebViewWidget(controller: controller),
     );
   }
