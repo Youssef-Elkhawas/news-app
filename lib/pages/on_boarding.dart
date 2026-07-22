@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:news_app/cubits/fetch_news_cubit/fetch_news_cubit.dart';
-import 'package:news_app/pages/login_page.dart';
 import 'package:news_app/pages/news_page.dart';
 
 class OnBoarding extends StatelessWidget {
@@ -33,7 +32,6 @@ class OnBoarding extends StatelessWidget {
                           "Globe",
                           style: TextStyle(
                             fontSize: 24,
-                            // fontWeight: FontWeight.bold,
                             color: Color(0xFF1E3A8A),
                           ),
                         ),
@@ -56,7 +54,7 @@ class OnBoarding extends StatelessWidget {
                 ),
               ),
 
-              //------navigation bUTTONS---------
+              //------navigation bUTTONS---------//
               ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<FetchNewsCubit>(

@@ -14,7 +14,7 @@ class NewsCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
+            builder: (context) =>
                 NewsWebView(url: newsModel.url, title: newsModel.title),
           ),
         );
@@ -44,7 +44,6 @@ class NewsCard extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
 
-                  // SizedBox(height: 4),
                   Text(
                     newsModel.discription,
                     maxLines: 2,

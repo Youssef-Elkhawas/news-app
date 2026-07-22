@@ -1,10 +1,7 @@
-// import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/fetch_news_cubit/fetch_news_cubit.dart';
 import 'package:news_app/cubits/fetch_news_cubit/fetch_news_state.dart';
-// import 'package:news_app/services/fetch_news_service.dart';
-// import 'package:news_app/services/fetch_news_service.dart';
 import 'package:news_app/widgets/category_card.dart';
 import 'package:news_app/widgets/custom_loading_widget.dart';
 import 'package:news_app/widgets/news_card.dart';
@@ -20,43 +17,14 @@ class _NewsPageState extends State<NewsPage> {
   List<String> categories = [
     "General",
     "Technology",
-    "Sports",
+    "Sport",
     "Business",
-    "Football",
-    "Cinema",
     "Health",
+    "Movie",
+    "Football",
     "Programming",
   ];
   String currentCategory = "general";
-
-  // final List<Map<String, String>> articles = List.generate(
-  //   10,
-  //   (index) => {
-  //     "breif": lorem(words: 50, paragraphs: 2),
-  //     "title": lorem(words: 6, paragraphs: 1),
-  //     "image": "https://picsum.photos/seed/${(index + 1) * 9}/400/250",
-  //   },
-  // );
-
-  // var fetchNewsList = [];
-  // bool isLoading = false;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchNews(category: currentCategory);
-  // }
-
-  // void fetchNews({required String category}) async {
-  //   isLoading = true;
-  //   setState(() {});
-  //   FetchNewsService fetchNewsService = FetchNewsService();
-  //   fetchNewsList = await fetchNewsService.newsList(category: currentCategory);
-  //   setState(() {
-  //     isLoading = false;
-  //   });
-  //   debugPrint(fetchNewsList.toString());
-  // }
 
   //-----------------------------------------------//
 
@@ -71,11 +39,7 @@ class _NewsPageState extends State<NewsPage> {
           children: [
             Text(
               "Globe",
-              style: TextStyle(
-                fontSize: 24,
-                // fontWeight: FontWeight.bold,
-                color: Color(0xFF1E3A8A),
-              ),
+              style: TextStyle(fontSize: 24, color: Color(0xFF1E3A8A)),
             ),
             Text(
               "Pulse",
@@ -110,7 +74,6 @@ class _NewsPageState extends State<NewsPage> {
                         setState(() {
                           currentCategory = categories[index];
                         });
-                        // fetchNews(category: currentCategory);
                         BlocProvider.of<FetchNewsCubit>(
                           context,
                         ).fetchNews(category: currentCategory);
@@ -127,7 +90,7 @@ class _NewsPageState extends State<NewsPage> {
               ),
               Divider(thickness: 0.65, indent: 30, endIndent: 30),
 
-              //-----------news card---------------
+              //-----------news card---------------//
               Expanded(
                 child: BlocBuilder<FetchNewsCubit, FetchNewsState>(
                   builder: (context, state) {
