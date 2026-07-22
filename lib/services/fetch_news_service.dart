@@ -11,6 +11,7 @@ class FetchNewsService {
         "https://newsapi.org/v2/everything",
         queryParameters: {
           "q": category,
+          "sortBy": "publishedAt",
           "apiKey": "f9c537df027742c1adf8fa88b449507d",
         },
       );
@@ -25,6 +26,8 @@ class FetchNewsService {
                 item["urlToImage"] ??
                 "https://ichef.bbci.co.uk/ace/standard/2048/cpsprodpb/3b89/live/60e7ae50-03dc-11f0-a387-437e2fb661fc.jpg",
             url: item["url"] ?? "https://www.google.com",
+            publishedAt: item["publishedAt"] ?? "unkown date",
+            author: item["author"] ?? "undefined author",
           ),
         );
       }

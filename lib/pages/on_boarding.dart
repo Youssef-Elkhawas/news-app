@@ -10,6 +10,8 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF8FAFC),
+
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
@@ -47,7 +49,7 @@ class OnBoarding extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Welcome for newest news",
+                      "Stay updated with the latest news",
                       style: TextStyle(fontSize: 12, color: Color(0xFF475569)),
                     ),
                   ],
@@ -59,7 +61,7 @@ class OnBoarding extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<FetchNewsCubit>(
                     context,
-                  ).fetchNews(category: "General");
+                  ).fetchNews(category: "all");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

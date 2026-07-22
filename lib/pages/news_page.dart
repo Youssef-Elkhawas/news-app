@@ -14,17 +14,17 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  List<String> categories = [
+  static const List<String> categories = [
+    "All",
     "General",
     "Technology",
-    "Sport",
+    "Sports",
     "Business",
     "Health",
-    "Movie",
-    "Football",
-    "Programming",
+    "Entertainment",
+    "Science",
   ];
-  String currentCategory = "general";
+  String currentCategory = "all";
 
   //-----------------------------------------------//
 
@@ -33,6 +33,8 @@ class _NewsPageState extends State<NewsPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Color(0xFFF8FAFC),
+        surfaceTintColor: Color(0xFF2563EB),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -52,6 +54,7 @@ class _NewsPageState extends State<NewsPage> {
           ],
         ),
       ),
+
       backgroundColor: Color(0xFFF8FAFC),
 
       body: SafeArea(
