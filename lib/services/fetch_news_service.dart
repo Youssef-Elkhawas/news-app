@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/models/news_model.dart';
 
 class FetchNewsService {
@@ -12,7 +13,7 @@ class FetchNewsService {
         queryParameters: {
           "q": category,
           "sortBy": "publishedAt",
-          "apiKey": "f9c537df027742c1adf8fa88b449507d",
+          "apiKey": dotenv.env['NEWS_API_KEY'],
         },
       );
       List<NewsModel> newsData = [];
